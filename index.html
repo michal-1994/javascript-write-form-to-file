@@ -26,8 +26,16 @@
       .container {
         width: 100%;
         max-width: 768px;
-        padding: 0 1rem;
+        padding: 0 .5rem;
         margin: auto;
+      }
+      .row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .row > div {
+        flex: 1;
       }
       header {
         background-color: #663399;
@@ -38,7 +46,7 @@
         font-size: 0.8rem;
       }
       main {
-        padding: 2rem 0;
+        padding: 1.5rem 0;
       }
       footer {
         margin-top: auto;
@@ -52,18 +60,22 @@
       form {
         display: block;
       }
+      .form-info {
+        font-weight: 600;
+      }
       .form-group {
         margin-bottom: 1rem;
+        padding: 0 .25rem;
       }
       .form-control {
         display: block;
         width: 100%;
         padding: 0.375rem 0.75rem;
         font-size: 1rem;
-        line-height: 1.5;
-        color: #495057;
+        line-height: 1.5rem;
+        font-weight: 400;
+        color: #212529;
         background-color: #fff;
-        background-clip: padding-box;
         border: 1px solid #ced4da;
         border-radius: 0.25rem;
         transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
@@ -72,27 +84,20 @@
         display: block;
         width: 100%;
         padding: 0.375rem 2.25rem 0.375rem 0.75rem;
-        -moz-padding-start: calc(0.75rem - 3px);
         font-size: 1rem;
+        line-height: 1.5rem;
         font-weight: 400;
-        line-height: 1.5;
         color: #212529;
         background-color: #fff;
-        background-repeat: no-repeat;
-        background-position: right 0.75rem center;
-        background-size: 16px 12px;
         border: 1px solid #ced4da;
         border-radius: 0.25rem;
         transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-        -webkit-appearance: none;
-        -moz-appearance: none;
         appearance: none;
       }
       .form-check {
         display: block;
-        min-height: 1.5rem;
-        padding-left: 0;
         margin-bottom: 0.125rem;
+        min-height: 1.5rem;
       }
       .form-actions {
         display: flex;
@@ -118,23 +123,18 @@
         font-family: Arial, Helvetica, sans-serif;
       }
       button {
-        cursor: pointer;
         display: inline-block;
-        font-weight: 400;
-        text-align: center;
-        white-space: nowrap;
-        vertical-align: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-        border: 1px solid transparent;
         padding: 0.375rem 0.75rem;
         font-size: 1rem;
-        line-height: 1.5;
-        border-radius: 0.25rem;
-        background-color: #663399;
+        line-height: 1.5rem;
+        font-weight: 400;
+        text-align: center;
         color: white;
+        background-color: #663399;
+        white-space: nowrap;
+        cursor: pointer;
+        border: 1px solid transparent;
+        border-radius: 0.25rem;
       }
       button:hover {
         opacity: 0.9;
@@ -150,6 +150,10 @@
         <div class="container">
           <!-- Form Start -->
           <form onsubmit="saveFile(event)">
+
+            <!-- File configuration -->
+            <p class="form-info">Pola formularza:</p>
+
             <!-- Input -->
             <div class="form-group">
               <label for="input-id">Input value</label>
@@ -185,26 +189,31 @@
               </label>
             </div>
 
-            <!-- Filename required -->
-            <div class="form-group">
-              <label for="filename">Nazwa pliku</label>
-              <input
-                type="text"
-                class="form-control"
-                id="filename"
-                placeholder="Nazwa pliku"
-                required
-              />
-            </div>
+            <!-- File configuration -->
+            <p class="form-info">Konfiguracja pliku:</p>
 
-            <!-- Filetype required -->
-            <div class="form-group">
-              <label for="filetype">Wybierz typ pliku</label>
-              <select class="form-select" id="filetype">
-                <option value="rtf">Rtf</option>
-                <option value="txt">Txt</option>
-              </select>
-            </div>
+            <div class="row">
+              <!-- Filename required -->
+              <div class="form-group">
+                <label for="filename">Nazwa pliku</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="filename"
+                  placeholder="Nazwa pliku"
+                  required
+                />
+              </div>
+
+              <!-- Filetype required -->
+              <div class="form-group">
+                <label for="filetype">Wybierz typ pliku</label>
+                <select class="form-select" id="filetype">
+                  <option value="rtf">Rtf</option>
+                  <option value="txt">Txt</option>
+                </select>
+              </div>
+          </div>
 
             <div class="form-actions">
               <button type="submit">Zapisz</button>
