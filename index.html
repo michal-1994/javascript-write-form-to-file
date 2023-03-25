@@ -26,7 +26,7 @@
       .container {
         width: 100%;
         max-width: 768px;
-        padding: 0 .5rem;
+        padding: 0 0.5rem;
         margin: auto;
       }
       .row {
@@ -64,8 +64,8 @@
         font-weight: 600;
       }
       .form-group {
-        margin-bottom: 1rem;
-        padding: 0 .25rem;
+        margin-bottom: 1.5rem;
+        padding: 0 0.25rem;
       }
       .form-control {
         display: block;
@@ -94,11 +94,6 @@
         transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
         appearance: none;
       }
-      .form-check {
-        display: block;
-        margin-bottom: 0.125rem;
-        min-height: 1.5rem;
-      }
       .form-actions {
         display: flex;
         justify-content: flex-end;
@@ -112,14 +107,8 @@
         display: inline-block;
         margin-bottom: 0.5rem;
       }
-      textarea {
-        overflow: auto;
-        resize: vertical;
-      }
       input,
-      textarea,
-      input::placeholder,
-      textarea::placeholder {
+      input::placeholder {
         font-family: Arial, Helvetica, sans-serif;
       }
       button {
@@ -150,71 +139,127 @@
         <div class="container">
           <!-- Form Start -->
           <form onsubmit="saveFile(event)">
-
             <!-- File configuration -->
-            <p class="form-info">Pola formularza:</p>
+            <p class="form-info">Pola formularza</p>
 
             <!-- Input -->
             <div class="form-group">
-              <label for="input-id">Input value</label>
+              <label for="input-id"> Input value </label>
               <input
-                type="text"
-                class="form-control"
                 id="input-id"
+                class="form-control"
+                type="text"
                 placeholder="Input value"
               />
             </div>
 
-            <!-- Textarea -->
+            <!-- Checkbox -->
+            <p>Checkbox value</p>
             <div class="form-group">
-              <label for="textarea-id">Textarea value</label>
-              <textarea
-                class="form-control"
-                id="textarea-id"
-                rows="6"
-                placeholder="Textarea value"
-              ></textarea>
+              <input
+                id="checkbox-id"
+                type="checkbox"
+                name="checkbox-id"
+                value="Checkbox value"
+              />
+              <label for="checkbox-id"> Checkbox value </label>
             </div>
 
-            <!-- Textarea -->
-            <div class="form-check">
+            <!-- Select -->
+            <div class="form-group">
+              <label for="select-id"> Select value </label>
+              <select id="select-id" class="form-select" name="select-name">
+                <option value="">Select empty value</option>
+                <option value="Select value 1">Select value 1</option>
+                <option value="Select value 2">Select value 2</option>
+              </select>
+            </div>
+
+            <!-- Radios -->
+            <p>Radios:</p>
+            <div class="form-group">
+              <div>
+                <input
+                  id="radio-id-1"
+                  type="radio"
+                  name="radio-name"
+                  value="Radio value 1"
+                />
+                <label for="radio-id-1"> Radio value 1 </label>
+              </div>
+              <div>
+                <input
+                  id="radio-id-2"
+                  type="radio"
+                  name="radio-name"
+                  value="Radio value 2"
+                />
+                <label for="radio-id-2"> Radio value 2 </label>
+              </div>
+            </div>
+
+            <!-- Multiple checkbox -->
+            <p>Multiplebox</p>
+            <div class="form-group">
+              <div>
+                <input
+                  id="multiplebox-id-1"
+                  type="checkbox"
+                  name="multiplebox-name"
+                  value="Multiplebox value 1"
+                />
+                <label for="multiplebox-id-1"> Multiplebox value 1 </label>
+              </div>
+              <div>
+                <input
+                  id="multiplebox-id-2"
+                  type="checkbox"
+                  name="multiplebox-name"
+                  value="Multiplebox value 2"
+                />
+                <label for="multiplebox-id-2"> Multiplebox value 2 </label>
+              </div>
+            </div>
+
+            <!-- Input number -->
+            <div class="form-group">
+              <label for="number-id"> Number value </label>
               <input
-                class="form-check-input"
-                type="checkbox"
-                value=""
-                id="checkbox-id"
+                id="number-id"
+                class="form-control"
+                type="number"
+                placeholder="Number value"
               />
-              <label class="form-check-label" for="checkbox-id">
-                Checkbox value
-              </label>
             </div>
 
             <!-- File configuration -->
-            <p class="form-info">Konfiguracja pliku:</p>
+            <p class="form-info">Konfiguracja pliku</p>
 
             <div class="row">
               <!-- Filename required -->
               <div class="form-group">
-                <label for="filename">Nazwa pliku</label>
+                <label for="filename"> Nazwa pliku </label>
                 <input
-                  type="text"
-                  class="form-control"
                   id="filename"
+                  class="form-control"
+                  type="text"
                   placeholder="Nazwa pliku"
                   required
                 />
               </div>
-
               <!-- Filetype required -->
               <div class="form-group">
-                <label for="filetype">Wybierz typ pliku</label>
-                <select class="form-select" id="filetype">
-                  <option value="rtf">Rtf</option>
+                <label for="filetype"> Wybierz typ pliku </label>
+                <select
+                  id="filetype"
+                  class="form-select"
+                  name="Wybierz typ pliku"
+                >
                   <option value="txt">Txt</option>
+                  <option value="rtf">Rtf</option>
                 </select>
               </div>
-          </div>
-
+            </div>
             <div class="form-actions">
               <button type="submit">Zapisz</button>
             </div>
@@ -228,26 +273,32 @@
     </div>
 
     <script>
+      const convertFormToData = (elements) => {
+        let data = "";
+        [...elements].forEach((item) => {
+          if (
+            (item.type === "text" ||
+              item.type === "number" ||
+              item.type === "select-one") &&
+            item.id !== "filename" &&
+            item.id !== "filetype"
+          ) {
+            data += item.labels[0].innerText + ": " + item.value + "\n";
+          }
+          if (item.type === "checkbox" || item.type === "radio") {
+            data += item.value + ": " + item.checked + "\n";
+          }
+        });
+        return data;
+      };
+
       const saveFile = (event) => {
         event.preventDefault();
         // Filename, filetype
         const filename = document.getElementById("filename");
         const filetype = document.getElementById("filetype");
-        // Form fields
-        const input = document.getElementById("input-id");
-        const textarea = document.getElementById("textarea-id");
-        const checkbox = document.getElementById("checkbox-id");
         // Form data
-        let data =
-          "Input value: " +
-          input.value +
-          "\n" +
-          "Textarea value: " +
-          textarea.value +
-          "\n" +
-          "Checkbox value: " +
-          checkbox.checked;
-
+        let data = convertFormToData(event.target.elements);
         // Configuration
         const blob = new Blob([data], { type: "text/plain" });
         let link = document.createElement("a");
